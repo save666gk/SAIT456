@@ -1,0 +1,72 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="category" id="project">
+    /Выберите категорию
+</div>
+<div class="category-nav">
+    <a class="button {% if not selected_category %}active{% endif %}" href="?category=">Показать все</a>
+    {% for category in categories %}
+        <a class="button {% if selected_category == category.name %}active{% endif %}" href="?category={{ category.name }}">{{ category.name }}</a>
+    {% endfor %}
+</div>
+
+<div class="separator"></div>
+
+<div class="projects-count">Всего: {{ projects.paginator.count }}</div>
+<div class="project">
+    {% for project in projects %}
+    <div class="project-info">
+        <h2>{{ project.title }}</h2>
+        <p>Описание проекта: {{ project.description }}</p>
+        <p>Цель: {{ project.goal }}</p>
+        <p>Результат: {{ project.result }}</p>
+        <div class="project-buttons">
+            <a href="{{ project.xp_download_link }}" class="button-download">Загрузить XП</a>
+            <a href="mailto:{{ project.contact_email }}" class="button-contact">Связаться с нами</a>
+        </div>
+    </div>
+    <div class="project-media">
+        {% if project.video %}
+        <div class="play-button">
+            <video width="450" height="300"  controls autoplay muted>
+                <source src="{{ project.video.url }}" type="video/mp4">
+                Ваш браузер не поддерживает элемент <code>video</code>.
+            </video>
+        </div>
+        {% endif %}
+        {% if project.photo %}
+        <button class="project-photo">
+            <img src="{{ project.photo.url }}" alt="Фото проекта">
+            ФОТО ПРОЕКТА
+        </button>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+    {% if projects.has_previous %}
+        <a class="page-arrow" href="?page=1{% if selected_category %}&category={{ selected_category }}{% endif %}">&laquo;</a>
+        <a class="page-arrow" href="?page={{ projects.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}">&lt;</a>
+    {% endif %}
+
+    {% for num in projects.paginator.page_range %}
+        {% if projects.number == num %}
+            <span class="page-link active">{{ num }}</span>
+        {% elif num > projects.number|add:'-3' and num < projects.number|add:'3' %}
+            <a class="page-link" href="?page={{ num }}{% if selected_category %}&category={{ selected_category }}{% endif %}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if projects.has_next %}
+        <a class="page-arrow" href="?page={{ projects.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}">&gt;</a>
+        <a class="page-arrow" href="?page={{ projects.paginator.num_pages }}{% if selected_category %}&category={{ selected_category }}{% endif %}">&raquo;</a>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+

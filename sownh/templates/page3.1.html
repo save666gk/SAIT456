@@ -1,0 +1,51 @@
+{% extends 'page3.html' %}
+{% load static %}
+
+{% block content %}
+<div class="category" id="news">
+    Выберите категорию
+</div>
+
+<div class="category-nav">
+    <a class="button {% if not selected_category %}active{% endif %}" href="?category=">Показать все</a>
+
+    {% for category in categories %}
+    <a class="button {% if selected_category == category.name %}active{% endif %}" href="?category={{ category.name }}">{{ category.name }}</a>
+    {% endfor %}
+</div>
+
+<div class="container">
+    <div class="cards-container">
+        {% for news_item in page_obj %}
+            <div class="card">
+                <img src="{{ news_item.photo.url }}" alt="{{ news_item.title }}"> <!-- Изображение новости -->
+                <div class="card-text">
+                    <h3>{{ news_item.title }}</h3> <!-- Заголовок новости -->
+                    <p>{{ news_item.description }}</p> <!-- Описание новости -->
+                    <a href="#">Подробнее →</a> <!-- Ссылка для перехода к полной новости -->
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a class="page-arrow" href="?page=1{% if selected_category %}&category={{ selected_category }}{% endif %}">&laquo;</a>
+        <a class="page-arrow" href="?page={{ page_obj.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}">&lt;</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <span class="page-link active">{{ num }}</span>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a class="page-link" href="?page={{ num }}{% if selected_category %}&category={{ selected_category }}{% endif %}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <a class="page-arrow" href="?page={{ page_obj.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}">&gt;</a>
+        <a class="page-arrow" href="?page={{ page_obj.paginator.num_pages }}{% if selected_category %}&category={{ selected_category }}{% endif %}">&raquo;</a>
+    {% endif %}
+</div>
+{% endblock %}
