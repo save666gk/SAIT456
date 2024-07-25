@@ -23,4 +23,6 @@ from sownh import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('sownh.urls')),
+    path('profille/', include('profille.urls')),
+    path('accounts/', include('accounts.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

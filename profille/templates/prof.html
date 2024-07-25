@@ -1,0 +1,38 @@
+{% extends "home.html" %}
+{% load static %}
+{% block title %}Все продукты{% endblock %}
+
+{% block content %}
+    <h1>Все продукты</h1>
+    <div class="search-filter">
+        <input type="text" placeholder="Поиск" class="search-bar">
+        <button class="filter-button">Фильтры</button>
+    </div>
+    <div class="product-grid">
+        {% if products %}
+            {% for product in products %}
+                <div class="product-card">
+                    <div class="product-info">
+                        <h2>{{ product.name }}</h2>
+                        <p>{{ product.description }}</p>
+                        <div class="product-price">Цена: {{ product.price }} ₽</div>
+                        <button class="buy-button">Купить</button>
+                    </div>
+                    {% if product.photo %}
+                        <img src="{{ product.photo.url }}" alt="{{ product.name }}" class="product-image">
+                    {% else %}
+                        <img src="{% static 'icon/11.png' %}" alt="Продукт" class="product-image">
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Нет продуктов для отображения.</p>
+        {% endif %}
+    </div>
+    <div class="pagination">
+        <a href="#" class="page active">1</a>
+        <a href="#" class="page">2</a>
+        <a href="#" class="page">3</a>
+        <a href="#" class="next-page">></a>
+    </div>
+{% endblock %}

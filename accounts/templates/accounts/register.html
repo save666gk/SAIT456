@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.21/vanta.net.min.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+        }
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 80%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .logo img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .unkn {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .register {
+            margin-top: 10px;
+        }
+        .register a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="background" id="vanta-background"></div>
+
+<div class="container">
+    <div class="logo">
+        <img src="{% static 'accounts/icon1/logo.png' %}" alt="Логотип">
+    </div>
+    <form id="registrationForm" method="POST">
+        {% csrf_token %}
+        <div class="input-group">
+            <label for="id_username">Имя пользователя:</label>
+            <input type="text" name="username" id="id_username" required>
+        </div>
+        <div class="input-group">
+            <label for="id_email">Электронная почта:</label>
+            <input type="email" name="email" id="id_email" required>
+        </div>
+        <div class="input-group">
+            <label for="id_password1">Пароль:</label>
+            <input type="password" name="password1" id="id_password1" required>
+        </div>
+        <div class="input-group">
+            <label for="id_password2">Подтвердите пароль:</label>
+            <input type="password" name="password2" id="id_password2" required>
+        </div>
+        <button type="submit">Зарегистрироваться</button>
+        <div class="unkn">
+            <a href="{% url 'accounts:login' %}" class="forgot-password">Войти</a>
+        </div>
+    </form>
+</div>
+
+<script>
+VANTA.NET({
+  el: "#vanta-background",
+  mouseControls: false,
+  touchControls: false,
+  gyroControls: false,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  scale: 1.00,
+  scaleMobile: 1.00,
+  color: 0x009FE3,
+  backgroundColor: 0xFFFFFF
+})
+
+document.getElementById('registrationForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+    fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    }).then(response => response.json())
+      .then(data => {
+          if (data.errors) {
+              alert('Ошибка: ' + JSON.stringify(data.errors));
+          } else {
+              alert(data.message);
+          }
+      });
+});
+</script>
+
+</body>
+</html>

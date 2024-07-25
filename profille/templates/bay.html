@@ -1,0 +1,38 @@
+{% extends "home.html" %}
+{% load static %}
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <div class="service-banner-2">
+        <div class="service-text-2">
+            <h3>Пакеты услуг от 99 ₽/мес</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <img src="{% static 'icon/service.png' %}" alt="Service" class="service-image-2">
+        <button class="order-button-2">Заказать</button>
+    </div>
+
+    <h2>Мои покупки</h2>
+    <div class="search-filter-2">
+        <input type="text" placeholder="Поиск" class="search-bar-2">
+        <button class="filter-button-2">
+            <img src="{% static 'icon/Ellipse.png' %}" alt="Filter">
+            <span>Фильтры</span>
+        </button>
+    </div>
+    <div class="empty-state-2">
+        Здесь ничего не найдено
+    </div>
+
+    <h2>Лицензии</h2>
+    <div class="search-filter-2">
+        <input type="text" placeholder="Поиск" class="search-bar-2">
+        <button class="filter-button-2">
+            <img src="{% static 'icon/Ellipse.png' %}" alt="Filter">
+            <span>Фильтры</span>
+        </button>
+    </div>
+    <div class="empty-state-2">
+        Здесь ничего не найдено
+    </div>
+{% endblock %}

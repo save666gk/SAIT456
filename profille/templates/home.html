@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Все продукты{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles1.css' %}">
+</head>
+<body>
+    <div class="header">
+        <div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
+        <div class="logo">
+            <img src="{% static 'icon/logo.png' %}" alt="Logo">
+        </div>
+        <div class="profile">
+            <button class="order-button">Заказать продукт</button>
+            <div class="user-profile">
+                <span class="user-icon">&#128100;</span>
+                <span class="user-name">{{ user.username }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-content">
+            <a href="{% url 'profille:glav' %}" class="menu-item active"><img src="{% static 'icon/1a.png' %}" class="icon"><span class="text">Главная</span></a>
+            <a href="{% url 'profille:mybay' %}" class="menu-item"><img src="{% static 'icon/8.png' %}" class="icon"><span class="text">Лицензии</span></a>
+            <a href="{% url 'profille:bay' %}" class="menu-item"><img src="{% static 'icon/7.png' %}" class="icon"><span class="text">Мои покупки</span></a>
+            <a href="{% url 'profille:drova' %}" class="menu-item"><img src="{% static 'icon/6.png' %}" class="icon"><span class="text">Обновления</span></a>
+            <a href="{% url 'profille:oplata' %}" class="menu-item"><img src="{% static 'icon/5.png' %}" class="icon"><span class="text">Платежи</span></a>
+            <a href="{% url 'profille:prof' %}" class="menu-item"><img src="{% static 'icon/4.png' %}" class="icon"><span class="text">Купить продукт</span></a>
+            <a href="#" class="menu-item"><img src="{% static 'icon/3.png' %}" class="icon"><span class="text">Сервис</span></a>
+            <a href="#" class="menu-item"><img src="{% static 'icon/2.png' %}" class="icon"><span class="text">Активации</span></a>
+            <a href="#" class="menu-item"><img src="{% static 'icon/1.png' %}" class="icon"><span class="text">Тех.Поддержка</span></a>
+            <a href="{% url 'accounts:logout' %}" class="menu-item"><img src="{% static 'icon/9.png' %}" class="icon"><span class="text">Выйти</span></a>
+        </div>
+    </div>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Закрытие боковой панели при клике вне ее
+        document.addEventListener('click', function(event) {
+            var sidebar = document.getElementById('sidebar');
+            var menuIcon = document.querySelector('.menu-icon');
+
+            // Проверка, что клик не внутри боковой панели или меню иконки
+            if (!sidebar.contains(event.target) && !menuIcon.contains(event.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
