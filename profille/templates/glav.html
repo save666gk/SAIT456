@@ -1,0 +1,32 @@
+{% extends "home.html" %}
+{% load static %}
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <h1>Главная</h1>
+    <div class="search-bar-container">
+        <input type="text" placeholder="Поиск" class="search-bar">
+        <button class="search-button">
+            <img src="{% static 'icon/search.png' %}" alt="Search">
+        </button>
+    </div>
+    <h2>Мои продукты</h2>
+    <div class="product-container">
+        <div class="product">
+            <span>Название</span>
+            <a href=""><img src="{% static 'icon/Out.png' %}" alt="Edit"></a>
+        </div>
+        <button class="new-product-button">
+            Купить новый продукт
+            <img src="{% static 'icon/grop2.png' %}" alt="Add">
+        </button>
+    </div>
+    <div class="service-banner">
+        <div class="service-text">
+            <h3>Сервисное обслуживание от 99 ₽/мес</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor.</p>
+            <button class="order-button">Заказать</button>
+        </div>
+        <img src="{% static 'icon/grop1.png' %}" alt="Service" class="service-image">
+    </div>
+{% endblock %}
