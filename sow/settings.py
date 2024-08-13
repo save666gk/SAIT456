@@ -130,3 +130,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'danilka_1971@mail.ru'
+EMAIL_HOST_PASSWORD = 'WKJE3eGx09ZPAsEC2M7S'
+DEFAULT_FROM_EMAIL = 'danilka_1971@mail.ru'
+

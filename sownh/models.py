@@ -13,8 +13,13 @@ class Category(models.Model):
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
 
+
+from django.db import models
+
+
 class Project(models.Model):
-    category = models.ForeignKey(Category, related_name='projects', on_delete=models.SET_NULL, null=True, verbose_name="Категория")
+    category = models.ForeignKey(Category, related_name='projects', on_delete=models.SET_NULL, null=True,
+                                 verbose_name="Категория")
     title = models.CharField(max_length=200, verbose_name="Название проекта")
     description = models.TextField(verbose_name="Описание проекта")
     goal = models.TextField(verbose_name="Цель")
@@ -22,7 +27,6 @@ class Project(models.Model):
     xp_download_link = models.URLField(verbose_name="Ссылка для загрузки XP", blank=True)
     contact_email = models.EmailField(verbose_name="Контактный email")
     video = models.FileField(upload_to='videos/', null=True, blank=True, verbose_name="Видео проекта")
-    photo = models.ImageField(upload_to='photos/',null=True, blank=True, verbose_name="Фото проекта")
     date_created = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
 
     def __str__(self):
@@ -31,6 +35,15 @@ class Project(models.Model):
     class Meta:
         verbose_name = "Проект"
         verbose_name_plural = "Проекты"
+
+
+class ProjectPhoto(models.Model):
+    project = models.ForeignKey(Project, related_name='photos', on_delete=models.CASCADE, verbose_name="Проект")
+    photo = models.ImageField(upload_to='photos/', verbose_name="Фото проекта")
+
+    class Meta:
+        verbose_name = "Фотография проекта"
+        verbose_name_plural = "Фотографии проекта"
 
 
 class CategoryNews(models.Model):

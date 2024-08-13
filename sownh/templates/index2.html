@@ -24,28 +24,64 @@
         <p>Цель: {{ project.goal }}</p>
         <p>Результат: {{ project.result }}</p>
         <div class="project-buttons">
-            <a href="{{ project.xp_download_link }}" class="button-download">Загрузить XП</a>
+            <a href="{{ project.xp_download_link }}" class="button-download">Загрузить XP</a>
             <a href="mailto:{{ project.contact_email }}" class="button-contact">Связаться с нами</a>
         </div>
     </div>
     <div class="project-media">
         {% if project.video %}
         <div class="play-button">
-            <video width="450" height="300"  controls autoplay muted>
+            <video width="450" height="300" controls autoplay muted>
                 <source src="{{ project.video.url }}" type="video/mp4">
                 Ваш браузер не поддерживает элемент <code>video</code>.
             </video>
         </div>
         {% endif %}
-        {% if project.photo %}
-        <button class="project-photo">
-            <img src="{{ project.photo.url }}" alt="Фото проекта">
-            ФОТО ПРОЕКТА
-        </button>
+        {% if project.photos.all %}
+        <div class="project-photos-container">
+            <div class="arrow left-arrow">&#9664;</div> <!-- Левая стрелка -->
+            <div class="project-photos10-wrapper">
+                <div class="project-photos10">
+                    {% for photo in project.photos.all %}
+                    <div class="project-photo10">
+                        <img src="{{ photo.photo.url }}" alt="Фото проекта">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="arrow right-arrow">&#9654;</div> <!-- Правая стрелка -->
+        </div>
         {% endif %}
     </div>
     {% endfor %}
 </div>
+
+<!-- Добавление JavaScript для управления стрелками -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const leftArrow = document.querySelector('.left-arrow');
+    const rightArrow = document.querySelector('.right-arrow');
+    const photosContainer = document.querySelector('.project-photos10');
+    const photosWrapper = document.querySelector('.project-photos10-wrapper');
+
+    let scrollAmount = 0;
+    const scrollStep = 200; // Шаг прокрутки
+
+    leftArrow.addEventListener('click', () => {
+        scrollAmount -= scrollStep;
+        if (scrollAmount < 0) scrollAmount = 0;
+        photosContainer.style.transform = `translateX(-${scrollAmount}px)`;
+    });
+
+    rightArrow.addEventListener('click', () => {
+        const maxScroll = photosContainer.scrollWidth - photosWrapper.clientWidth;
+        scrollAmount += scrollStep;
+        if (scrollAmount > maxScroll) scrollAmount = maxScroll;
+        photosContainer.style.transform = `translateX(-${scrollAmount}px)`;
+    });
+});
+</script>
+
 
 <div class="pagination">
     {% if projects.has_previous %}

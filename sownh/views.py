@@ -27,7 +27,7 @@ def page2(request):
     else:
         projects = Project.objects.all()  # Если категория не была выбрана, показываем все проекты
 
-    paginator = Paginator(projects, 1)  # Показывать 5 проектов на странице
+    paginator = Paginator(projects, 2)  # Показывать 5 проектов на странице
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -61,4 +61,40 @@ def page4(request):
 
 def page5(request):
     return render(request, 'page5.html')
+
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .forms import ContactForm
+
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .forms import ContactForm
+from django.core.mail import send_mail
+
+def send_email(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            phone = form.cleaned_data['phone']
+
+            # Тело письма
+            message = f'Имя: {name}\nНомер телефона: {phone}'
+
+            # Отправка письма
+            send_mail(
+                'Контактная форма',  # Тема письма
+                message,  # Сообщение
+                'danilka_1971@mail.ru',  # Отправитель
+                ['danilka_1971@mail.ru'],  # Получатель
+                fail_silently=False,
+            )
+
+            # Перенаправление с параметром success=1
+            return redirect('/?success=1')
+    else:
+        form = ContactForm()
+
+    return render(request, 'base.html', {'form': form})
 

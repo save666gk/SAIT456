@@ -36,8 +36,8 @@
             </div>
 
             <div class="btn">
-                <a class="button1" href="#">Войти</a>
-                <a class="button2" href="#">Регистрация</a>
+                <a class="button1" target="_blank" href="{% url 'accounts:login' %}">Войти</a>
+                <a class="button2" target="_blank" href="{% url 'accounts:register' %}">Регистрация</a>
             </div>
 
             <div class="burger1" onclick="toggleMobileMenu1()">
@@ -55,8 +55,8 @@
         <a class="mobile-nav-item1" href="{% url 'page4' %}">Охрана труда</a>
         <a class="mobile-nav-item1" href="{% url 'page5' %}">Контакты</a>
         <div class="mobile-btn1">
-            <a class="button1" href="#">Войти</a>
-            <a class="button2" href="#">Регистрация</a>
+            <a class="button1" href="{% url 'accounts:login' %}">Войти</a>
+            <a class="button2" href="{% url 'accounts:register' %}">Регистрация</a>
         </div>
         <div class="mobile-contact1">
             <p>info@sowh</p>
@@ -65,6 +65,51 @@
     </div>
 </div>
 <script src="{% static 'js/ind.js.' %}"></script>
+
+
+<div class="content-with-background">
+    <div class="main-content">
+        <div class="title-section">
+            <div class="page-path">Главная / Контакты</div>
+            <h1>Контакты</h1>
+            <div class="btn2">
+                <a class="button2" href="#project">Контакты</a>
+            </div>
+        </div>
+    </div>
+    <div class="header-background"></div> <!-- Блок для фона -->
+</div>
+
+
+
+<div class="contact-container11">
+    <div class="header11">
+        <div class="logo-section11">
+            <img src="{% static 'images/last.png' %}" alt="Логотип" class="logo11"> <!-- Замените на путь к вашему логотипу -->
+        </div>
+        <div class="contact-details11">
+            <p><a href="mailto:info@sowh" class="email11">info@sowh</a></p>
+            <p class="phone11">+7 (999) 999 99-99</p>
+            <p class="address11">город Москва, ул Дмитровское ш., д. 13А, офис 65</p>
+        </div>
+    </div>
+
+    <hr class="divider11">
+
+    <div class="company-details11">
+        <div class="company-info11">
+            <p>ИНН/КПП</p>
+            <p>ОГРН</p>
+        </div>
+        <div class="company-registration11">
+            <p>Адрес регистрации компании</p>
+        </div>
+    </div>
+
+    <div class="map11">
+        <img src="map.png" alt="Карта" class="map-image11"> <!-- Замените на путь к изображению карты -->
+    </div>
+</div>
 
 
 
@@ -79,9 +124,20 @@
             <p>+7 (666) 166-77-77</p>
         </div>
         <div class="contact-form">
-            <input type="text" placeholder="Виктор">
-            <input type="tel" placeholder="+7(916) 123-45-67">
-            <button type="submit">Отправить</button>
+            <form action="{% url 'send_email' %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Ваше имя" required>
+                <input type="tel" name="phone" placeholder="Ваш номер телефона" maxlength="15">
+                <button type="submit">Отправить</button>
+            </form>
+
+            <!-- Добавляем JavaScript для отображения всплывающего окна -->
+            {% if request.GET.success %}
+            <script>
+                alert("Спасибо! С вами скоро свяжутся.");
+            </script>
+            {% endif %}
+
         </div>
         <div class="contact-checkbox">
             <input type="checkbox" id="agree">
@@ -103,7 +159,7 @@
             <a class="footer-item" href="{% url 'page2' %}">Проекты</a>
             <a class="footer-item" href="{% url 'page3' %}">Новости</a>
             <a class="footer-item" href="{% url 'page4' %}">Озрана труда</a>
-            <a class="footer-item" href="{% url 'page4' %}">Контакты</a>
+            <a class="footer-item" href="{% url 'page5' %}">Контакты</a>
         </div>
         <div class="footer-info">
             <h1>КОНТАКТЫ</h1>

@@ -22,37 +22,18 @@
     </div>
 
     <div class="product-grid-3">
-        <div class="product-card-3">
-            <div class="product-info-3">
-                <h3>Название обновления</h3>
-                <p>Описание обновления Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <button class="download-button-3">Скачать <img src="{% static 'icon/strelka.png' %}" alt="Download"></button>
+        {% for update in updates %}
+            <div class="product-card-3">
+                <div class="product-info-3">
+                    <h3>{{ update.version }}</h3>
+                    <p>{{ update.description }}</p>
+                    <button class="download-button-3">Скачать <img src="{% static 'icon/strelka.png' %}" alt="Download"></button>
+                </div>
+                <img src="{% static 'icon/drova.png' %}" alt="Обновление" class="product-image-3">
             </div>
-            <img src="{% static 'icon/drova.png' %}" alt="Обновление" class="product-image-3">
-        </div>
-        <div class="product-card-3">
-            <div class="product-info-3">
-                <h3>Название обновления</h3>
-                <p>Описание обновления Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <button class="download-button-3">Скачать <img src="{% static 'icon/strelka.png' %}" alt="Download"></button>
-            </div>
-            <img src="{% static 'icon/drova.png' %}" alt="Обновление" class="product-image-3">
-        </div>
-        <div class="product-card-3">
-            <div class="product-info-3">
-                <h3>Название обновления</h3>
-                <p>Описание обновления Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <button class="download-button-3">Скачать <img src="{% static 'icon/strelka.png' %}" alt="Download"></button>
-            </div>
-            <img src="{% static 'icon/drova.png' %}" alt="Обновление" class="product-image-3">
-        </div>
-        <div class="product-card-3">
-            <div class="product-info-3">
-                <h3>Название обновления</h3>
-                <p>Описание обновления Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <button class="download-button-3">Скачать <img src="{% static 'icon/strelka.png' %}" alt="Download"></button>
-            </div>
-            <img src="{% static 'icon/drova.png' %}" alt="Обновление" class="product-image-3">
-        </div>
+        {% endfor %}
+        {% if not updates %}
+            <p>Нет обновлений для отображения.</p>
+        {% endif %}
     </div>
 {% endblock %}

@@ -1903,4 +1903,143 @@ margin-top:10px;
 }
 
 
+.project-photos-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden; /* Скрываем элементы, которые выходят за пределы контейнера */
+    width: 100%; /* Задаем ширину контейнера */
+}
 
+.project-photos10-wrapper {
+    overflow: hidden; /* Скрываем элементы, которые выходят за пределы обертки */
+    flex-grow: 1; /* Занимает все доступное пространство между стрелками */
+}
+
+.project-photos10 {
+    display: flex;
+    gap: 16px; /* Отступы между фотографиями */
+    white-space: nowrap; /* Запрет на перенос строк */
+    transition: transform 0.3s ease; /* Плавная анимация при скролле */
+}
+
+.project-photo10 {
+    flex: 0 0 auto; /* Фиксированная ширина элементов */
+    width: 200px; /* Установка ширины фото */
+    height: 150px; /* Установка высоты фото */
+    background-color: #ddd; /* Фоновый цвет для фото */
+    border-radius: 8px; /* Скругленные углы */
+    position: relative; /* Для позиционирования оверлея */
+    overflow: hidden; /* Обрезка содержимого */
+}
+
+.project-photo10 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Обрезка изображения для заполнения контейнера */
+    display: block;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.2); /* Прозрачный фон */
+    color: white;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    margin: 0 10px;
+}
+
+.arrow:hover {
+    background-color: rgba(0, 0, 0, 0.5); /* Более темный фон при наведении */
+}
+
+.left-arrow {
+    left: 10px;
+}
+
+.right-arrow {
+    right: 10px;
+}
+
+
+
+
+.contact-container11 {
+    width: 80%; /* Фиксированная ширина контейнера */
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 100px;
+}
+
+.header11 {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.logo-section11 {
+    flex: 1;
+    padding-top: 10px; /* Подравнивание логотипа */
+}
+
+.logo11 {
+
+    height: auto;
+}
+
+.contact-details11 {
+    flex: 2;
+    text-align: right;
+}
+
+.email11 {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 100px;
+}
+
+.phone11 {
+    font-size: 28px;
+    color: #333;
+    margin: 10px 0;
+}
+
+.address11 {
+    color: #666;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.divider11 {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 20px 0;
+}
+
+.company-details11 {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.map11 {
+    width: 100%;
+}
+
+.map-image11 {
+    width: 100%;
+    height: auto;
+    display: block;
+}

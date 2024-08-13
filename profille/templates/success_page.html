@@ -1,0 +1,8 @@
+{% extends "home.html" %}
+{% block title %}Покупка успешна{% endblock %}
+
+{% block content %}
+<h1>Покупка успешна!</h1>
+<p>Спасибо за вашу покупку. Ваш продукт был добавлен в вашу учетную запись.</p>
+<a href="{% url 'profille:prof' %}">Вернуться к продуктам</a>
+{% endblock %}

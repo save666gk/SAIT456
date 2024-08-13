@@ -36,8 +36,8 @@
             </div>
 
             <div class="btn">
-                <a class="button1" href="#">Войти</a>
-                <a class="button2" href="#">Регистрация</a>
+                <a class="button1" target="_blank" href="{% url 'accounts:login' %}">Войти</a>
+                <a class="button2" target="_blank" href="{% url 'accounts:register' %}">Регистрация</a>
             </div>
 
             <div class="burger1" onclick="toggleMobileMenu1()">
@@ -55,8 +55,8 @@
         <a class="mobile-nav-item1" href="{% url 'page4' %}">Охрана труда</a>
         <a class="mobile-nav-item1" href="{% url 'page5' %}">Контакты</a>
         <div class="mobile-btn1">
-            <a class="button1" href="#">Войти</a>
-            <a class="button2" href="#">Регистрация</a>
+            <a class="button1" href="{% url 'accounts:login' %}">Войти</a>
+            <a class="button2" href="{% url 'accounts:register' %}">Регистрация</a>
         </div>
         <div class="mobile-contact1">
             <p>info@sowh</p>
@@ -65,12 +65,14 @@
     </div>
 </div>
 <script src="{% static 'js/ind.js.' %}"></script>
+
 <div class="news-container">
     <h1 class="news-title">{{ news.title }}</h1>
     <img class="news-photo" src="{{ news.photo.url }}" alt="{{ news.title }}">
     <p class="news-description">{{ news.description }}</p>
     <p class="news-date">Дата публикации: {{ news.date_created|date:"d M Y" }}</p>
 </div>
+
 
 
 <div class="contact-section">
@@ -84,9 +86,20 @@
             <p>+7 (666) 166-77-77</p>
         </div>
         <div class="contact-form">
-            <input type="text" placeholder="Виктор">
-            <input type="tel" placeholder="+7(916) 123-45-67">
-            <button type="submit">Отправить</button>
+            <form action="{% url 'send_email' %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Ваше имя" required>
+                <input type="tel" name="phone" placeholder="Ваш номер телефона" maxlength="15">
+                <button type="submit">Отправить</button>
+            </form>
+
+            <!-- Добавляем JavaScript для отображения всплывающего окна -->
+            {% if request.GET.success %}
+            <script>
+                alert("Спасибо! С вами скоро свяжутся.");
+            </script>
+            {% endif %}
+
         </div>
         <div class="contact-checkbox">
             <input type="checkbox" id="agree">
@@ -108,7 +121,7 @@
             <a class="footer-item" href="{% url 'page2' %}">Проекты</a>
             <a class="footer-item" href="{% url 'page3' %}">Новости</a>
             <a class="footer-item" href="{% url 'page4' %}">Озрана труда</a>
-            <a class="footer-item" href="{% url 'page4' %}">Контакты</a>
+            <a class="footer-item" href="{% url 'page5' %}">Контакты</a>
         </div>
         <div class="footer-info">
             <h1>КОНТАКТЫ</h1>

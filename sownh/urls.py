@@ -11,4 +11,5 @@ urlpatterns = [
     path('case/<int:case_id>/', case_detail, name='case_detail'),
     path('news/<int:news_id>/', views.news_detail, name='news_detail'),
     path('page5/', views.page5, name='page5'),
+    path('send_email/', views.send_email, name='send_email'),
 ]
