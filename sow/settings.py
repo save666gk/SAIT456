@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-0_-b$1@nz0ip=z3z@ha)=v@(3(^h+7eq2*xl#b*^bi8up86!6)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.72','192.168.0.104', '192.168.1.73', '*']
+ALLOWED_HOSTS = ['sow.com', 'www.sow.com', '127.0.0.1']
+
 
 
 
@@ -79,10 +80,15 @@ WSGI_APPLICATION = 'sow.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'sowhn',  # Имя базы данных, которую вы создали
+        'USER': 'postgres',  # Ваше имя пользователя PostgreSQL
+        'PASSWORD': '079100233',  # Пароль для пользователя PostgreSQL
+        'HOST': 'localhost',  # Адрес сервера базы данных (localhost, если база на локальной машине)
+        'PORT': '5432',  # Порт PostgreSQL (по умолчанию 5432)
     }
 }
+
 
 
 # Password validation
@@ -107,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 

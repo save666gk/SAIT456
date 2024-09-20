@@ -1,32 +1,99 @@
 {% extends "home.html" %}
 {% load static %}
-{% block title %}Главная{% endblock %}
+{% block title %}Лицензии{% endblock %}
 
 {% block content %}
-    <h1>Главная</h1>
-    <div class="search-bar-container">
-        <input type="text" placeholder="Поиск" class="search-bar">
-        <button class="search-button">
-            <img src="{% static 'icon/search.png' %}" alt="Search">
+    <div class="service-banner-1">
+        <div class="service-text-1">
+            <h3>Пакеты услуг от 99 ₽/мес</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <button class="order-button-1">Заказать</button>
+    </div>
+
+    <h2>Мои покупки</h2>
+    <div class="search-filter-1">
+        <input type="text" placeholder="Поиск" class="search-bar-1">
+        <button class="filter-button-1">
+            <img src="{% static 'icon/Ellipse.png' %}" alt="Filter">
+            <span>Фильтры</span>
         </button>
     </div>
-    <h2>Мои продукты</h2>
-    <div class="product-container">
-        <div class="product">
-            <span>Название</span>
-            <a href=""><img src="{% static 'icon/Out.png' %}" alt="Edit"></a>
-        </div>
-        <button class="new-product-button">
-            Купить новый продукт
-            <img src="{% static 'icon/grop2.png' %}" alt="Add">
-        </button>
-    </div>
-    <div class="service-banner">
-        <div class="service-text">
-            <h3>Сервисное обслуживание от 99 ₽/мес</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor.</p>
-            <button class="order-button">Заказать</button>
-        </div>
-        <img src="{% static 'icon/grop1.png' %}" alt="Service" class="service-image">
-    </div>
+
+    <div class="product-grid-1 purchases-container">
+    {% if purchases %}
+        {% for purchase in purchases %}
+            <div class="product-card-1">
+                <div class="product-header-1">
+                    <div class="product-status-1">
+                        {% if purchase.status == 'completed' %}
+                            <span class="status-dot green"></span> {{ purchase.get_status_display }}
+                        {% elif purchase.status == 'cancelled' %}
+                            <span class="status-dot red"></span> {{ purchase.get_status_display }}
+                        {% else %}
+                            <span class="status-dot yellow"></span> В работе
+                        {% endif %}
+                    </div>
+                    <div class="product-date-1">{{ purchase.purchase_date|date:"d.m.Y" }}</div>
+                </div>
+                <div class="product-info-1">
+                    <p>{{ purchase.product.name }}</p>
+                </div>
+                <div class="product-price-1">
+                    <p>Цена: {{ purchase.amount }} руб.</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div>У вас пока нет покупок.</div>
+    {% endif %}
+</div>
+
+
+    <h2>Лицензии</h2>
+
+
+    <div class="table-container-1">
+    <table class="table-1">
+        <thead>
+            <tr>
+                <th>Название лицензии</th>
+                <th>Дата создания</th>
+                <th>Дата окончания</th>
+                <th>Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for license in licenses %}
+            <tr>
+                <td> {{ license.license_key }}</td>
+                <td>{{ license.issue_date|date:"d.m.Y" }}</td>
+                <td>{{ license.expiration_date|date:"d.m.Y" }}</td>
+                <td class="{% if license.expiration_date >= today %}status-active-1{% else %}status-inactive-1{% endif %}">
+                    {% if license.expiration_date >= today %}Действующий{% else %}Недействующий{% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+<div class="pagination-1">
+    {% if licenses.has_previous %}
+        <a href="?page={{ licenses.previous_page_number }}" class="prev-page-1"><</a>
+    {% endif %}
+
+    {% for num in licenses.paginator.page_range %}
+        {% if licenses.number == num %}
+            <a href="?page={{ num }}" class="page-1 active-1">{{ num }}</a>
+        {% else %}
+            <a href="?page={{ num }}" class="page-1">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if licenses.has_next %}
+        <a href="?page={{ licenses.next_page_number }}" class="next-page-1">></a>
+    {% endif %}
+</div>
 {% endblock %}

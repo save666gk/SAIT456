@@ -22,7 +22,7 @@
                 <div class="card-text">
                     <h3>{{ news_item.title }}</h3> <!-- Заголовок новости -->
                     <p>{{ news_item.description }}</p> <!-- Описание новости -->
-                    <a href="#">Подробнее →</a> <!-- Ссылка для перехода к полной новости -->
+                    <a href="{% url 'news_detail' news_item.id %}">Подробнее →</a> <!-- Ссылка для перехода к полной новости -->
                 </div>
             </div>
         {% endfor %}

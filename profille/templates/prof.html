@@ -3,58 +3,77 @@
 {% block title %}Все продукты{% endblock %}
 
 {% block content %}
-<h1>Все продукты</h1>
-<div class="search-filter">
-    <input type="text" placeholder="Поиск" class="search-bar">
-    <button class="filter-button">Фильтры</button>
-</div>
-<div class="product-grid">
-    {% for product in products %}
-    <div class="product-card">
-        <div class="product-info">
-            <h2>{{ product.name }}</h2>
-            <p>{{ product.description }}</p>
-            <div class="product-price">Цена: {{ product.price }} ₽</div>
-            <!-- Форма для покупки продукта -->
-            <button type="button" class="buy-button" data-product-id="{{ product.id }}">Купить</button>
+<div class="fixed-block">
+    <h1>Все продукты</h1>
+    <div class="search-filter-1">
+        <input type="text" placeholder="Поиск" class="search-bar-1">
+        <button class="filter-button-1">
+
+            <span>Фильтры</span>
+        </button>
+    </div>
+    <div class="product-grid">
+        {% for product in products %}
+        <div class="product-card">
+            <div class="product-info">
+                <h2>{{ product.name }}</h2>
+                <p>{{ product.description }}</p>
+                <div class="product-price">Цена: {{ product.price }} ₽</div>
+                <!-- Форма для покупки продукта -->
+                <button type="button" class="buy-button" data-product-id="{{ product.id }}">Купить</button>
+            </div>
+            {% if product.photo %}
+            <img src="{{ product.photo.url }}" alt="{{ product.name }}" class="product-image">
+            {% else %}
+            <img src="{% static 'icon/11.png' %}" alt="Продукт" class="product-image">
+            {% endif %}
         </div>
-        {% if product.photo %}
-        <img src="{{ product.photo.url }}" alt="{{ product.name }}" class="product-image">
+        {% endfor %}
+    </div> <!-- Закрытие блока product-grid -->
+
+    {% if not products %}
+    <p>Нет продуктов для отображения.</p>
+    {% endif %}
+
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Форма для обратной связи</h2>
+            <form id="orderForm" method="post" action="">
+                {% csrf_token %}
+                <input type="hidden" id="product_id" name="product_id" value="">
+                <div class="form-row">
+                    <input type="text" id="name" name="name" placeholder="Имя" required>
+                </div>
+                <div class="form-row">
+                    <input type="email" id="email" name="email" placeholder="Mail" required>
+                </div>
+                <div class="form-row">
+                    <input type="tel" id="phone" name="phone" placeholder="Номер телефона" required>
+                </div>
+                <button type="submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="pagination">
+        {% if products.has_previous %}
+        <a href="?page={{ products.previous_page_number }}" class="next-page">&lt;</a>
+        {% endif %}
+
+        {% for num in products.paginator.page_range %}
+        {% if products.number == num %}
+        <a href="?page={{ num }}" class="page active">{{ num }}</a>
         {% else %}
-        <img src="{% static 'icon/11.png' %}" alt="Продукт" class="product-image">
+        <a href="?page={{ num }}" class="page">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
+
+        {% if products.has_next %}
+        <a href="?page={{ products.next_page_number }}" class="next-page">&gt;</a>
         {% endif %}
     </div>
-    {% endfor %}
-</div> <!-- Закрытие блока product-grid -->
-
-{% if not products %}
-<p>Нет продуктов для отображения.</p>
-{% endif %}
-
-<!-- Модальное окно -->
-<div id="modal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Подтвердите заказ</h2>
-        <form id="orderForm" method="post" action="">
-            {% csrf_token %}
-            <input type="hidden" id="product_id" name="product_id" value="">
-            <label for="name">Имя:</label>
-            <input type="text" id="name" name="name" required><br><br>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br><br>
-            <label for="phone">Телефон:</label>
-            <input type="tel" id="phone" name="phone" required><br><br>
-            <button type="submit">Подтвердить заказ</button>
-        </form>
-    </div>
-</div>
-
-<div class="pagination">
-    <a href="#" class="page active">1</a>
-    <a href="#" class="page">2</a>
-    <a href="#" class="page">3</a>
-    <a href="#" class="next-page">></a>
 </div>
 
 <script>

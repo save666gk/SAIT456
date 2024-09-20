@@ -9,9 +9,9 @@ class LicenseAdmin(admin.ModelAdmin):
 
 @admin.register(Purchase)
 class PurchaseAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'product', 'purchase_date', 'amount', 'created_at', 'updated_at')
-    search_fields = ('user__username', 'product__name')
-    list_filter = ('purchase_date',)
+    list_display = ('id', 'user', 'product', 'purchase_date', 'amount', 'status', 'created_at', 'updated_at')
+    search_fields = ('user__username', 'product__name', 'status')
+    list_filter = ('purchase_date', 'status')
 
 @admin.register(Update)
 class UpdateAdmin(admin.ModelAdmin):
@@ -21,9 +21,10 @@ class UpdateAdmin(admin.ModelAdmin):
 
 @admin.register(Payment)
 class PaymentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'amount', 'payment_date', 'status', 'created_at', 'updated_at')
-    search_fields = ('user__username',)
-    list_filter = ('payment_date', 'status')
+    list_display = ('id', 'user', 'purchase', 'amount', 'payment_date', 'status')
+    list_filter = ('status', 'payment_date')
+    search_fields = ('user__username', 'purchase__product__name')
+    ordering = ('-payment_date',)
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):

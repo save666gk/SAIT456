@@ -59,27 +59,32 @@
 <!-- Добавление JavaScript для управления стрелками -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const leftArrow = document.querySelector('.left-arrow');
-    const rightArrow = document.querySelector('.right-arrow');
-    const photosContainer = document.querySelector('.project-photos10');
-    const photosWrapper = document.querySelector('.project-photos10-wrapper');
+    const projectContainers = document.querySelectorAll('.project-photos-container');
 
-    let scrollAmount = 0;
-    const scrollStep = 200; // Шаг прокрутки
+    projectContainers.forEach(container => {
+        const leftArrow = container.querySelector('.left-arrow');
+        const rightArrow = container.querySelector('.right-arrow');
+        const photosContainer = container.querySelector('.project-photos10');
+        const photosWrapper = container.querySelector('.project-photos10-wrapper');
 
-    leftArrow.addEventListener('click', () => {
-        scrollAmount -= scrollStep;
-        if (scrollAmount < 0) scrollAmount = 0;
-        photosContainer.style.transform = `translateX(-${scrollAmount}px)`;
-    });
+        let scrollAmount = 0;
+        const scrollStep = 200; // Шаг прокрутки
 
-    rightArrow.addEventListener('click', () => {
-        const maxScroll = photosContainer.scrollWidth - photosWrapper.clientWidth;
-        scrollAmount += scrollStep;
-        if (scrollAmount > maxScroll) scrollAmount = maxScroll;
-        photosContainer.style.transform = `translateX(-${scrollAmount}px)`;
+        leftArrow.addEventListener('click', () => {
+            scrollAmount -= scrollStep;
+            if (scrollAmount < 0) scrollAmount = 0;
+            photosContainer.style.transform = `translateX(-${scrollAmount}px)`;
+        });
+
+        rightArrow.addEventListener('click', () => {
+            const maxScroll = photosContainer.scrollWidth - photosWrapper.clientWidth;
+            scrollAmount += scrollStep;
+            if (scrollAmount > maxScroll) scrollAmount = maxScroll;
+            photosContainer.style.transform = `translateX(-${scrollAmount}px)`;
+        });
     });
 });
+
 </script>
 
 

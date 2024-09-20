@@ -19,10 +19,22 @@ class License(models.Model):
         verbose_name_plural = 'Лицензии'
 
 class Purchase(models.Model):
+    STATUS_CHOICES = [
+        ('completed', 'Выполнен'),
+        ('in_progress', 'В работе'),
+        ('cancelled', 'Отменен'),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name='Продукт')
     purchase_date = models.DateField(verbose_name='Дата покупки')
     amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма')
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='in_progress',  # По умолчанию статус "В работе"
+        verbose_name='Статус'
+    )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создано')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Обновлено')
 
@@ -49,10 +61,22 @@ class Update(models.Model):
         verbose_name_plural = 'Обновления'
 
 class Payment(models.Model):
+    STATUS_CHOICES = [
+        ('completed', 'Выполнен'),
+        ('in_progress', 'В работе'),
+        ('cancelled', 'Отменен'),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    purchase = models.ForeignKey('Purchase', on_delete=models.CASCADE, verbose_name='Покупка', null=True, blank=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма')
     payment_date = models.DateField(verbose_name='Дата платежа')
-    status = models.CharField(max_length=255, verbose_name='Статус')
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='in_progress',  # По умолчанию статус "В работе"
+        verbose_name='Статус'
+    )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создано')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Обновлено')
 
@@ -62,10 +86,6 @@ class Payment(models.Model):
     class Meta:
         verbose_name = 'Платеж'
         verbose_name_plural = 'Платежи'
-
-from django.db import models
-from django.contrib.auth.models import User
-
 
 
 from django.db import models

@@ -1,7 +1,16 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-
-from profille.models import Product, Update
+from django.contrib.auth.decorators import login_required  # Для защиты представления от неавторизованного доступа
+from django.core.mail import send_mail  # Для отправки писем
+from django.shortcuts import get_object_or_404, render, redirect  # Для получения объектов, рендеринга шаблонов и редиректов
+from django.utils import timezone  # Для работы с временными метками
+from django.template.loader import render_to_string  # Для рендеринга HTML шаблонов в строку
+from django.utils.html import strip_tags  # Для удаления HTML тегов из строки
+from .models import Product, Purchase
+from .forms import PurchaseForm
+import logging
+from profille.models import Product, Update, License, Payment
 
 
 # Create your views here.
@@ -12,46 +21,68 @@ def home(request):
         'email': request.user.email
     }
     return render(request, 'profille/home.html', context)
+
+
 @login_required
 def prof(request):
-    products = Product.objects.all()  # Отображаем все продукты
+    products_list = Product.objects.all()  # Get all products
+    paginator = Paginator(products_list, 4)  # Show 10 products per page
+
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
+
     return render(request, 'prof.html', {'products': products})
+
+
 @login_required
 def glav(request):
-    return render(request, 'glav.html')
-
-@login_required
-def mybay(request):
-    return render(request, 'mybay.html')
-
-@login_required
-def bay(request):
+    # Получение покупок пользователя
     user_purchases = Purchase.objects.filter(user=request.user).order_by('-purchase_date')
-    return render(request, 'bay.html', {'purchases': user_purchases})
 
+    # Пагинация для лицензий
+    licenses_list = License.objects.filter(user=request.user).order_by('-issue_date')
+    paginator = Paginator(licenses_list, 1)  # Показываем 5 лицензий на странице
+    page_number = request.GET.get('page')
+    licenses = paginator.get_page(page_number)
+
+    # Текущая дата для проверки статуса лицензии
+    today = timezone.now().date()
+
+    # Передача покупок и лицензий в шаблон
+    context = {
+        'purchases': user_purchases,
+        'licenses': licenses,
+        'today': today,
+    }
+
+    return render(request, 'glav.html', context)
 @login_required
 def drova(request):
-    updates = Update.objects.all()  # Отображаем
+    updates = Update.objects.all()  # Fetch all updates
     return render(request, 'drova.html', {'updates': updates})
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 @login_required
 def oplata(request):
-    return render(request, 'oplata.html')
+    payments_list = Payment.objects.filter(user=request.user).select_related('purchase__product')
 
-from django.conf import settings  # Для доступа к настройкам, таким как DEFAULT_FROM_EMAIL
-from django.contrib.auth.decorators import login_required  # Для защиты представления от неавторизованного доступа
-from django.core.mail import send_mail  # Для отправки писем
-from django.shortcuts import get_object_or_404, render, redirect  # Для получения объектов, рендеринга шаблонов и редиректов
-from django.utils import timezone  # Для работы с временными метками
-from django.template.loader import render_to_string  # Для рендеринга HTML шаблонов в строку
-from django.utils.html import strip_tags  # Для удаления HTML тегов из строки
+    # Пагинация
+    paginator = Paginator(payments_list, 1)  # Показывать по 10 платежей на странице
+    page = request.GET.get('page')
 
-import logging  # Для логирования, если требуется отладка
+    try:
+        payments = paginator.page(page)
+    except PageNotAnInteger:
+        # Если страница не является целым числом, возвращаем первую страницу
+        payments = paginator.page(1)
+    except EmptyPage:
+        # Если страница вне диапазона, возвращаем последнюю доступную страницу
+        payments = paginator.page(paginator.num_pages)
 
-# Импорт модели Product и формы PurchaseForm
-from .models import Product, Purchase
-from .forms import PurchaseForm
-import logging
+    return render(request, 'oplata.html', {'payments': payments})
+
 
 logger = logging.getLogger(__name__)
 @login_required

@@ -1,0 +1,7 @@
+<!-- confirm_email.html -->
+<form method="POST">
+    {% csrf_token %}
+    <label for="code">Введите код подтверждения:</label>
+    <input type="text" id="code" name="code">
+    <button type="submit">Подтвердить</button>
+</form>

@@ -27,7 +27,7 @@ def page2(request):
     else:
         projects = Project.objects.all()  # Если категория не была выбрана, показываем все проекты
 
-    paginator = Paginator(projects, 2)  # Показывать 5 проектов на странице
+    paginator = Paginator(projects, 3)  # Показывать 5 проектов на странице
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -45,7 +45,7 @@ def page3(request):
     else:
         filtered_news = News.objects.all()
 
-    paginator = Paginator(filtered_news, 5)  # Показывать 5 новостей на странице
+    paginator = Paginator(filtered_news, 4)  # Показывать 5 новостей на странице
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 

@@ -7,6 +7,34 @@
 		url('../fonts/gilroy-semibold.ttf') format('truetype'), /* Safari, Android, iOS */
 		url('../fonts/gilroy-semibold.svg#gilroy-semibold') format('svg'); /* Chrome < 4, Legacy iOS */
 }
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../fonts/SF-Pro-Display-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../fonts/SF-Pro-Display-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../fonts/SF-Pro-Display-Italic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../fonts/SF-Pro-Display-BoldItalic.otf') format('opentype');
+    font-weight: bold;
+    font-style: italic;
+}
+
 
 html, body {
 
@@ -62,7 +90,13 @@ body {
     margin-right:20px;
 }
 
+.colored-text {
+    color: #009FE3; /* Цвет текста после <br> */
+}
 
+.nav{
+    font-family: 'Gilroy';
+}
 
 .nav-item:last-child{
     margin-right: 30.55px;
@@ -73,6 +107,8 @@ body {
 }
 .btn{
     display: flex;
+    font-family: 'Gilroy';
+    gap: 5px
 }
 .button1{
     background-color: #ffffff;
@@ -117,10 +153,10 @@ body {
   position: absolute;
   left: 55.45px;
 
-  margin-top: 100.24px;
+  margin-top: 150.24px;
 }
 .header-subtitle{
-     font-family: 'Gilroy-SemiBold';
+     font-family: 'Gilroy';
      font-weight: 500;
      font-size: 20px;
      text-align: left;
@@ -140,14 +176,14 @@ body {
   display: inline-block;
   padding: 10px 15px;
   border-radius: 5px;
-  background-color: #007bff;
+  background-color: #009FE3;
   color: #fff;
   text-align: center;
   text-decoration: none;
   font-size: 16px;
   font-weight: bold;
   border-radius: 59px;
-  border: 1px solid #0084ff;
+  border: 1px solid #009FE3;
   padding: 10px 20px;
 }
 
@@ -185,6 +221,7 @@ button:active {
     background-repeat: no-repeat; /* Повторять изображение по горизонтали */
     background-position: center center;
     background-size: 80%;
+
 }
 
 
@@ -192,7 +229,7 @@ button:active {
 
 /* Общие стили для всего меню */
 .menu {
-  font-family: 'Arial', sans-serif; /* Устанавливаем шрифт для меню */
+  font-family: 'SF Pro Display', sans-serif;
   color: #000; /* Основной цвет текста */
   background-color: #fff; /* Цвет фона для меню */
     background-image: url('/static/images/first/service.png');
@@ -413,7 +450,7 @@ button:active {
 }
 
 .lesson-number {
-    color: #007bff; /* Цвет номера */
+    color: #009FE3; /* Цвет номера */
     font-size: 14px; /* Размер шрифта */
     font-weight: bold; /* Жирность шрифта */
     margin-bottom: 10px; /* Отступ между номером и изображением */
@@ -434,18 +471,21 @@ button:active {
 }
 
 .lesson-title {
+    font-family: "Manrope";
     font-size: 18px; /* Размер шрифта */
     margin-bottom: 10px; /* Отступ под заголовком */
     color: #009FE3;
 }
 
 .lesson-text {
+    font-family: 'Gilroy';
     font-size: 16px; /* Размер шрифта */
     margin-bottom: 20px; /* Отступ под текстом */
 }
 
 .lesson-info a {
-    color: #007bff; /* Цвет ссылки */
+    font-family: 'SF Pro Display';
+    color: #009FE3; /* Цвет ссылки */
     text-decoration: none; /* Убираем подчёркивание */
     padding: 10px 20px; /* Внутренние отступы */
     border-radius: 20px; /* Скругление углов */
@@ -453,6 +493,7 @@ button:active {
     display: inline-flex; /* Используем inline-flex, чтобы позволить внутренним элементам быть flex-items */
     align-items: center; /* Выравнивание содержимого кнопки по центру */
     gap: 10px; /* Расстояние между текстом и иконкой в кнопке */
+
 }
 
 .lesson-info a:hover {
@@ -708,6 +749,7 @@ text-align: left;
 }
 
 .news-card p {
+    font-family: 'Gilroy';
     padding: 15px;
     text-align: justify;
     margin-bottom: 15px;
@@ -715,6 +757,7 @@ text-align: left;
 }
 
 .more-link {
+    font-family: 'SF Pro Display';
     display: block;
     background-color: #fff;
     color: #009FE3;
@@ -786,12 +829,15 @@ text-align: left;
 }
 
 .contact-content p {
+  font-family: 'Gilroy';
   font-size: 16px;
   color: #666;
   margin-bottom: 20px;
 }
 
 .contact-phone p {
+  font-weight: 700;
+  font-family: 'Gilroy';
   font-size: 22px;
   color: #000;
   margin-bottom: 20px;
@@ -807,6 +853,7 @@ text-align: left;
 }
 
 .contact-form button {
+  width: 100%;
   background-color: #009fe3;
   color: #fff;
   border: none;
@@ -824,6 +871,7 @@ text-align: left;
 }
 
 .contact-checkbox label {
+  font-family: 'Gilroy';
   font-size: 14px;
   color: #666;
 }
@@ -848,7 +896,7 @@ text-align: left;
 
 
 .footer-con{
-
+    font-family: "Raleway";
     background: #494949; /* Пример цвета фона */
     color: white; /* Цвет текста */
     padding: 50px;
@@ -935,6 +983,7 @@ text-align: left;
 }
 .page-path {
     /* Стили для "хлебных крошек" */
+    font-family: 'Manrope';
     color: #a9a9a9; /* Светло-серый цвет текста, измените по вкусу */
     margin-bottom: 10px; /* Отступ снизу */
     font-size: 0.85em; /* Меньший размер шрифта относительно основного текста */
@@ -949,9 +998,10 @@ text-align: left;
     padding: 10px 20px; /* Отступы внутри кнопки */
     text-decoration: none; /* Убрать подчеркивание текста */
     color: white; /* Белый текст */
-    background-color: #007bff; /* Синий фон, цвет Bootstrap кнопки */
+    background-color: #009FE3; /* Синий фон, цвет Bootstrap кнопки */
     border-radius: 20px; /* Скругленные края у кнопки */
     transition: background-color 0.3s ease; /* Плавное изменение цвета при наведении */
+    font-family: 'Gilroy';
 }
 
 .button2:hover {
@@ -1026,7 +1076,7 @@ line-height: 24px;
 text-align: left;
 
 margin-left:180px;
-margin-top:10px;
+margin-top:20px;
 }
 
 .project-info h2 {
@@ -1065,6 +1115,7 @@ margin-top:10px;
 }
 
 .button-download {
+    font-family: 'Gilroy';
     background-color: #009FE3; /* Цвет фона для кнопки "Загрузить XП" */
     color: #fff; /* Цвет текста для кнопки "Загрузить XП" */
     width: 183.9px;
@@ -1072,6 +1123,7 @@ margin-top:10px;
 }
 
 .button-contact {
+    font-family: 'Gilroy';
     background-color: transparent; /* Прозрачный фон для кнопки "Связаться с нами" */
     color: 009FE3; /* Цвет текста */
     border: 1px solid white; /* Белая граница для кнопки "Связаться с нами" */
@@ -1088,7 +1140,7 @@ margin-top:10px;
 .project {
   display: flex;
     flex-wrap: wrap; /* Обеспечивает перенос блоков, если они не помещаются */
-    max-width: 80%; /* Максимальная ширина */
+    max-width: 1200px;
     box-sizing: border-box; /* Включает padding и border в общую ширину */
     padding: 20px;
     margin: auto; /* Центрирование блока */
@@ -1096,13 +1148,14 @@ margin-top:10px;
     border-radius: 8px;
     align-items: flex-start;
     gap: 10px;
+    justify-content: space-around;
 
 }
 
 .project-info {
     background-color: #fff;
     border-radius: 20px;
-    padding: 20px;
+    padding: 15px;
 
     max-width: 400px; /* Или любая другая максимальная ширина */
     margin-right: 20px;
@@ -1201,6 +1254,7 @@ margin-top:10px;
 }
 
 .card {
+  font-family: 'Gilroy';
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -1249,6 +1303,7 @@ margin-top:10px;
 .document-download {
   text-align: center; /* Центрирование ссылки */
   padding: 20px;
+  font-family: 'Gilroy';
 }
 
 .document-download a {
@@ -1442,7 +1497,8 @@ margin-top:10px;
         margin-left: 60px;
     }
     .category-nav{
-        margin-left: 60px;
+        display: grid;
+        max-width:80%;
     }
     .project{
         margin-left: 20px;
@@ -1507,7 +1563,7 @@ margin-top:10px;
         margin-left: 40px;
     }
     .category-nav{
-        margin-left: 40px;
+        margin-left: 60px;
     }
     .project{
         margin-left: 0px;
@@ -1557,7 +1613,7 @@ margin-top:10px;
         margin-left: 20px;
     }
     .category-nav{
-        margin-left: 20px;
+
     }
     .main-content {
         margin-left: 20px;
@@ -1601,7 +1657,7 @@ margin-top:10px;
         margin-left: 10px;
     }
     .category-nav{
-        margin-left: 10px;
+       margin-left: 40px;
     }
     .main-content {
         margin-left: 10px;
@@ -1880,6 +1936,7 @@ margin-top:10px;
 
 
 .button {
+    font-family: 'Manrope';
     display: inline-block;
     margin: 0 5px;
     padding: 10px 20px;
@@ -1897,9 +1954,9 @@ margin-top:10px;
 }
 
 .button.active {
-    background-color: #0CBBFB; /* Цвет активной кнопки */
+    background-color: #009FE3; /* Цвет активной кнопки */
     color: white;
-    border: 1px solid #0CBBFB;
+    border: 1px solid #009FE3;
 }
 
 
@@ -2002,16 +2059,19 @@ margin-top:10px;
 }
 
 .email11 {
+    font-family: 'Gilroy';
     color: #007BFF;
     text-decoration: none;
-    font-weight: bold;
-    font-size: 100px;
+    font-weight: 600;
+    font-size: 64px;
 }
 
 .phone11 {
-    font-size: 28px;
+    font-family: 'Manrope';
+    font-size: 55px;
     color: #333;
     margin: 10px 0;
+    font-weight: 500;
 }
 
 .address11 {
@@ -2042,4 +2102,46 @@ margin-top:10px;
     width: 100%;
     height: auto;
     display: block;
+}
+
+@media (max-width: 530px) {
+    .project-photos-container{
+        width: 85%;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .project-photos-container{
+        width: 80%;
+        margin-top: -40px;
+        margin-right: 100px;
+    }
+}
+
+@media (max-width: 420px) {
+    .project-photos-container {
+        width: 70%;
+        margin-top: -40px;
+        margin-right: 150px;
+    }
+}
+
+@media (max-width: 700px) {
+    .header11{
+        display: ruby;
+        justify-items: center;
+    }
+    .title-section h1 {
+
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 76.8px;
+    text-align: left;
+
+}
+    .button2{
+        font-size: 12px;
+        padding: 10px;
+    }
 }

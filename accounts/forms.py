@@ -9,9 +9,35 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
-class UserLoginForm(AuthenticationForm):
-    username = forms.CharField(label='Username')
-    password = forms.CharField(widget=forms.PasswordInput)
+from django import forms
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
+
+class UserLoginForm(forms.Form):
+    username = forms.CharField(label="Username or Email", max_length=254)
+    password = forms.CharField(label="Password", widget=forms.PasswordInput)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        username = cleaned_data.get('username')
+        password = cleaned_data.get('password')
+
+        if username and password:
+            # Attempt to authenticate with username first
+            user = authenticate(username=username, password=password)
+            if not user:
+                # If username authentication fails, try to authenticate with email
+                try:
+                    user_obj = User.objects.get(email=username)
+                    user = authenticate(username=user_obj.username, password=password)
+                except User.DoesNotExist:
+                    pass
+
+            if not user:
+                raise forms.ValidationError("Invalid login credentials")
+
+        return cleaned_data
+
 
 
 from django.shortcuts import render, redirect
@@ -46,3 +72,11 @@ def register(request):
     else:
         form = RegistrationForm()
     return render(request, 'accounts/register.html', {'form': form})
+
+
+class PasswordResetRequestForm(forms.Form):
+    email = forms.EmailField(label='Электронная почта', max_length=254, widget=forms.EmailInput(attrs={'class': 'form-control'}))
+
+class PasswordResetConfirmForm(forms.Form):
+    otp_code = forms.CharField(label='Код подтверждения', max_length=6, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    new_password = forms.CharField(label='Новый пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
